@@ -1,1 +1,7 @@
-Does this work?
+My solutions for the problems on http://www.leetcode.com/onlinejudge.
+
+All 87 problems until May 13, 2012.
+
+The timing function of the online judge is not always stable. Sometimes the JAVA solution may receive TLE. Just submit again later.
+
+The [cheat] mark (currently only on 'Wildcard Matching') means that the solution is not perfect and uses some cheat code to deal with some special cases. Please refer to the comments in the code for details.
