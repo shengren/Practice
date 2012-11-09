@@ -21,7 +21,7 @@ public class Solution {
                 x += prices[i] - prices[j];
                 if (ret < x) ret = x;
             }
-            if (minp > prices[i]) {
+            if (minp >= prices[i]) {
                 minp = prices[i];
                 pos = i;
             }
