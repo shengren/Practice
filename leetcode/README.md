@@ -1,4 +1,4 @@
-My solutions to the problems on http://www.leetcode.com/onlinejudge.
+My solutions to the problems on http://www.leetcode.com/onlinejudge
 
-The timing function of the online judge is not always stable. Sometimes the JAVA solution may receive TLE. Just submit it again later.
+Sometimes the Jave solutions may cause TLE. Just try to submit it again.
 
