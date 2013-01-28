@@ -1,28 +1,23 @@
 class Solution {
 public:
     int minimumTotal(vector<vector<int> > &triangle) {
-        if (triangle.size() == 0) return 0;
-        if (triangle.size() == 1) return triangle[0][0];
-        vector<vector<int> > d;
-        d.push_back(vector<int>(triangle.size()));
-        d.push_back(vector<int>(triangle.size()));
-        d[0][0] = triangle[0][0];
-        for (int l = 2; l <= triangle.size(); ++l) {
-            int p = l % 2;
-            int q = 1 - p;
-            for (int j = 0; j < l; ++j) {
-                d[q][j] = 987654321;
-                if (j < l - 1 && d[q][j] > d[p][j] + triangle[l - 1][j])
-                    d[q][j] = d[p][j] + triangle[l - 1][j];
-                if (j > 0 && d[q][j] > d[p][j - 1] + triangle[l - 1][j])
-                    d[q][j] = d[p][j - 1] + triangle[l - 1][j];
+        int num_rows = triangle.size();
+        if (num_rows == 0)
+            return 0;
+        if (num_rows == 1)
+            return triangle[0][0];
+        
+        vector<int> min_sum(num_rows);
+        for (int j = 0; j < num_rows; ++j)
+            min_sum[j] = triangle[num_rows - 1][j];
+        for (int i = num_rows - 2; i >= 0; --i)
+            for (int j = 0; j <= i; ++j) {  // <= not <
+                if (min_sum[j] < min_sum[j + 1])
+                    min_sum[j] += triangle[i][j];
+                else
+                    min_sum[j] = min_sum[j + 1] + triangle[i][j];
             }
-        }
-        int f = 1 - triangle.size() % 2;
-        int ret = 987654321;
-        for (int i = 0; i < triangle.size(); ++i)
-            if (ret > d[f][i])
-                ret = d[f][i];
-        return ret;
+        
+        return min_sum[0];
     }
 };
