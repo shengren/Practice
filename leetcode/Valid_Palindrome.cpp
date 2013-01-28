@@ -6,19 +6,19 @@ using namespace std;
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int left = 0;
-        int right = s.length() - 1;
+        int front = 0;
+        int back = s.length() - 1;
         while (true) {
-            while (left < s.length() && !isalnum(s[left]))  // alphanumeric
-                ++left;
-            while (right >= 0 && !isalnum(s[right]))
-                --right;
-            if (left >= right)
+            while (front < s.length() && !isalnum(s[front]))  // alphanumeric
+                ++front;
+            while (back >= 0 && !isalnum(s[back]))
+                --back;
+            if (front >= back)
                 break;
-            if (tolower(s[left]) != tolower(s[right]))
+            if (tolower(s[front]) != tolower(s[back]))
                 return false;
-            ++left;  // forgot to shift left/right here at first
-            --right;
+            ++front;  // forgot to shift front/back here at first
+            --back;
         }
         return true;
     }
