@@ -1,5 +1,3 @@
-#include <queue>
-using namespace std;
 /**
  * Definition for binary tree with next pointer.
  * struct TreeLinkNode {
@@ -9,31 +7,45 @@ using namespace std;
  * };
  */
 class Solution {
+    int max_depth;
+    TreeLinkNode *pre;
+    void findMaxDepth(TreeLinkNode *node, int depth) {
+        if (node == NULL)
+            return;
+        if (max_depth < depth)
+            max_depth = depth;
+        findMaxDepth(node->left, depth + 1);
+        findMaxDepth(node->right, depth + 1);
+    }
+    void findNext(TreeLinkNode *node, int target_depth, int depth) {
+        if (node == NULL)
+            return;
+        if (depth == target_depth) {
+            if (pre == NULL) {
+                pre = node;
+            } else {
+                pre->next = node;
+                pre = node;
+            }
+            return;
+        }
+        findNext(node->left, target_depth, depth + 1);
+        findNext(node->right, target_depth, depth + 1);
+    }
 public:
+    // To satisfy the constant extra space requirement, we first find out the 
+    // depth of the tree and then create the links level by level. Thus, beside
+    // the space used for recursion, there is only one node pointer 'pre'.
+    // This solution also works for 
+    // <Populating Next Right Pointers in Each Node II>, for which we keeps the 
+    // BFS version. BFS is faster but uses O(n) extra space, where n is the 
+    // maximum number of nodes on one level.
     void connect(TreeLinkNode *root) {
-        if (root == NULL) return;
-        queue<TreeLinkNode*> q;  // BFS
-        queue<int> d;
-        q.push(root);
-        d.push(1);  // root is on level 1
-        TreeLinkNode *pre = NULL;
-        int pre_d;
-        while (!q.empty()) {
-            TreeLinkNode *cur = q.front();
-            q.pop();
-            int cur_d = d.front();
-            d.pop();
-            if (pre != NULL && pre_d == cur_d) {  // ->next is initialized as NULL
-                pre->next = cur;
-            }
-            pre = cur;
-            pre_d = cur_d;
-            if (cur->left != NULL) {  // perfect binary tree
-                q.push(cur->left);
-                d.push(cur_d + 1);
-                q.push(cur->right);
-                d.push(cur_d + 1);
-            }
+        max_depth = 0;
+        findMaxDepth(root, 1);
+        for (int i = 1; i <= max_depth; ++i) {
+            pre = NULL;
+            findNext(root, i, 1);
         }
     }
 };

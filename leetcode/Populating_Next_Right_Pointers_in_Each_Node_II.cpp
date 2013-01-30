@@ -11,19 +11,21 @@ using namespace std;
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        if (root == NULL) return;
+        if (root == NULL)
+            return;
         queue<TreeLinkNode*> q;  // BFS
-        queue<int> d;
+        queue<int> d;  // depth of the cooresponding node
         q.push(root);
         d.push(1);  // root is on level 1
         TreeLinkNode *pre = NULL;
-        int pre_d;
+        int pre_d;  // depth of the node 'pre'
         while (!q.empty()) {
             TreeLinkNode *cur = q.front();
             q.pop();
             int cur_d = d.front();
             d.pop();
-            if (pre != NULL && pre_d == cur_d) {  // ->next is initialized as NULL
+            if (pre != NULL && pre_d == cur_d) {
+                // ->next is initialized as NULL
                 pre->next = cur;
             }
             pre = cur;
