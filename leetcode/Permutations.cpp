@@ -1,17 +1,13 @@
-#include <iostrteam>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
-
 class Solution {
 public:
     vector<vector<int> > permute(vector<int> &num) {
-        vector<vector<int> > ret;
+        vector<vector<int> > permutations;
         sort(num.begin(), num.end());
-        do {
-            ret.push_back(num);
-        } while (next_permutation(num.begin(), num.end()));
-        return ret;
+        while (true) {
+            permutations.push_back(num);
+            if (!next_permutation(num.begin(), num.end()))
+                break;
+        }
+        return permutations;
     }
 };
