@@ -1,9 +1,3 @@
-#include <iostream>
-#include <cstdio>
-#include <stack>
-
-using namespace std;
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -15,31 +9,28 @@ using namespace std;
 class Solution {
 public:
     ListNode *reverseKGroup(ListNode *head, int k) {
-        stack<ListNode*> s;
-        ListNode *tail = NULL;
-        ListNode *cur = head;
-        while (cur != NULL) {
-            s.push(cur);
-            cur = cur->next;
-            if (s.size() == k) {
-                ListNode *ln = s.top();
-                s.pop();
-                if (tail == NULL) {
-                    head = ln;
-                } else {
-                    tail->next = ln;
+        ListNode *prev_node = NULL;
+        ListNode *next_node = NULL;
+        ListNode *curr_node = head;
+        stack<ListNode *> cache;
+        while (curr_node != NULL) {
+            cache.push(curr_node);
+            next_node = curr_node->next;
+            if (cache.size() == k) {
+                if (prev_node == NULL)
+                    head = curr_node;
+                while (!cache.empty()) {
+                    curr_node = cache.top();
+                    cache.pop();
+                    if (prev_node != NULL) {
+                        prev_node->next = curr_node;
+                    }
+                    prev_node = curr_node;
                 }
-                tail = ln;
-                while (!s.empty()) {
-                    ln = s.top();
-                    s.pop();
-                    tail->next = ln;
-                    tail = ln;
-                }
-                tail->next = cur;
+                curr_node->next = next_node;
             }
+            curr_node = next_node;
         }
-        
         return head;
     }
 };
