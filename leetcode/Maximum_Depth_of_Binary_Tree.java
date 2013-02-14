@@ -15,7 +15,7 @@ public class Solution {
         dfs(t.left, h + 1);
         dfs(t.right, h + 1);
     }
-    public int maxHeight(TreeNode root) {
+    public int maxDepth(TreeNode root) {
         max_height = 0;
         dfs(root, 1);
         return max_height;
