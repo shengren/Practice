@@ -1,10 +1,15 @@
 class Solution {
   public:
     int singleNumber(int A[], int n) {
-      sort(A, A + n);
+      vector<bool> bit(n, false);
       for (int i = 0; i < n; ++i)
-        if ((i == 0     || A[i] != A[i - 1]) &&
-            (i == n - 1 || A[i] != A[i + 1]))
-          return A[i];
+        for (int j = 0; j < 32; ++j)
+          if (A[i] & (1 << j))
+            bit[j] = !bit[j];
+      int singular = 0;
+      for (int j = 0; j < 32; ++j)
+        if (bit[j])
+          singular |= (1 << j);
+      return singular;
     }
 };
