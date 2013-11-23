@@ -19,9 +19,9 @@ class Solution {
       for (int i = 0; i < n; ++i)
         for (int j = i + 1; j < n; ++j) {
           int num = 0;
-          if (points[i].x == points[j].x) {
+          if (points[i].x == points[j].x && points[i].y == points[j].y) {
             for (int k = 0; k < n; ++k)
-              if (points[k].x == points[i].x)
+              if (points[k].x == points[i].x && points[k].y == points[i].y)
                 ++num;
           } else {
             for (int k = 0; k < n; ++k)
